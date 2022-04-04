@@ -1,0 +1,63 @@
+﻿<Window x:Class="AsyncSample.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:local="clr-namespace:AsyncSample.Views"
+        mc:Ignorable="d"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="AsycnSample" Height="150" Width="450" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlock">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Foreground" Value="#404040" />
+            <Setter Property="Margin" Value="5,0" />
+            <Setter Property="Text" Value="{Binding Text.Value}" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Width" Value="24" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="CorrectTextBlock" BasedOn="{StaticResource BaseTextBlock}">
+            <Setter Property="Background" Value="LightGray" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsFinished.Value}" Value="True">
+                    <Setter Property="Background" Value="LightPink" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="AnswerTextBlock" BasedOn="{StaticResource BaseTextBlock}">
+            <Setter Property="Background" Value="Transparent" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsFinished.Value}" Value="True">
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Background" Value="#50A050" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <DataTemplate x:Key="CorrectTextTemplate">
+            <TextBlock Style="{StaticResource CorrectTextBlock}" />
+        </DataTemplate>
+        <DataTemplate x:Key="AnswerTextTemplate">
+            <TextBlock Style="{StaticResource AnswerTextBlock}" />
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="TextPanelTemplate">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0.5" />
+        </ItemsPanelTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <ItemsControl ItemsSource="{Binding Corrects.Value}"
+                          ItemTemplate="{StaticResource CorrectTextTemplate}"
+                          ItemsPanel="{StaticResource TextPanelTemplate}"
+                          Height="36"/>
+
+            <ItemsControl ItemsSource="{Binding Answers.Value}"
+                          ItemTemplate="{StaticResource AnswerTextTemplate}"
+                          ItemsPanel="{StaticResource TextPanelTemplate}"
+                          Height="36"/>
+
+            <Button Content="{Binding ButtonText.Value}" Command="{Binding StartCommand}" Margin="0,10,0,0" Height="20" Width="100" />
+        </StackPanel>
+    </Grid>
+</Window>
