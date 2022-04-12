@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AsyncSample.ViewModels.Tests;
+﻿namespace AsyncSample.ViewModels.Tests;
 
 /// <summary>
 /// 実行データ生成 途中データ作成用stub

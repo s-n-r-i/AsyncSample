@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AsyncSample.ViewModels;
+﻿namespace AsyncSample.ViewModels;
 
 /// <summary>
 /// 実行データ生成クラス インターフェース
